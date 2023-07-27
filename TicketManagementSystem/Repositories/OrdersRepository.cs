@@ -14,7 +14,6 @@ namespace TicketManagementSystem.Repositories
             var ord = _dbContext.Orders
                 .Include(e => e.TicketCategory)
                 .Include(e => e.TicketCategory.Event);
-
             return ord;
         }
 
@@ -33,14 +32,13 @@ namespace TicketManagementSystem.Repositories
         public async Task UpdateOrders(Order order)
         {
             _dbContext.Entry(order).State = EntityState.Modified;
-
-            _dbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync();
         }
 
         public async Task DeleteOrders(Order order) 
         {
             _dbContext.Remove(order);
-            _dbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync();
         }
 
     }   

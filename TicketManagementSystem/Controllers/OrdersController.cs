@@ -38,7 +38,7 @@ namespace TicketManagementSystem.Controllers
         }
 
         [HttpPatch]
-        public async Task<ActionResult> Patch(OrdersPatchDTO orderPatchDTO)
+        public async Task<ActionResult> PatchOrder(OrdersPatchDTO orderPatchDTO)
         {
             Order ord = await _ordersRepository.GetByID(orderPatchDTO.EventID);
 
@@ -52,7 +52,7 @@ namespace TicketManagementSystem.Controllers
         }
 
         [HttpDelete] 
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult> DeleteOrder(int id)
         {
             var ord = await _ordersRepository.GetByID(id);
 

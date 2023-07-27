@@ -12,7 +12,7 @@ namespace TicketManagementSystem.Repositories
         public async Task AddTicketCategory(TicketCategory ticketCategory)
         {
             _dbContext.TicketCategories.Add(ticketCategory);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

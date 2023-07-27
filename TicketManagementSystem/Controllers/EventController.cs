@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using TicketManagementSystem.DTO;
+using TicketManagementSystem.Exceptions;
 using TicketManagementSystem.Models;
 using TicketManagementSystem.Repositories;
 
@@ -22,7 +23,7 @@ namespace TicketManagementSystem.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Event>> getAllEvents()
+        public ActionResult<List<Event>> GetAllEvents()
         {
             var ev = _eventRepository.GetAll();
 
@@ -31,7 +32,7 @@ namespace TicketManagementSystem.Controllers
             return Ok(eventDTO);
         }
         [HttpGet]
-        public async Task<ActionResult<Event>> getEventsByID(int id) { 
+        public async Task<ActionResult<Event>> GetEventsByID(int id) { 
                 
             Event ev = await _eventRepository.GetById(id);
 
@@ -41,7 +42,7 @@ namespace TicketManagementSystem.Controllers
         }
 
         [HttpPatch]
-        public async Task<ActionResult<EventPatchDTO>> Patch(EventPatchDTO eventPatch)
+        public async Task<ActionResult<EventPatchDTO>> PatchEvent(EventPatchDTO eventPatch)
         {
             var ev = await _eventRepository.GetById(eventPatch.EventId);
             
@@ -55,11 +56,10 @@ namespace TicketManagementSystem.Controllers
         }
 
         [HttpDelete]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult> DeleteEvent(int id)
         {
-            var ev = await _eventRepository.GetById(id);
-
-            _eventRepository.DeleteEvent(id);
+            var ev = await _eventRepository.GetById(id) ?? throw new EntityNotFoundException(id, nameof(Event));
+            await _eventRepository.DeleteEvent(id);
 
             return NoContent();
         }

@@ -11,11 +11,6 @@ namespace TicketManagementSystem.Repositories
         {
             _dbContext = new TicketManagementSystemContext();
         }
-        public async Task AddEvent(Event @event)
-        {
-            _dbContext.Events.Add(@event);
-            _dbContext.SaveChangesAsync();
-        }
 
         public IEnumerable<Event> GetAll()
         {
@@ -33,17 +28,25 @@ namespace TicketManagementSystem.Repositories
             return ev;
         }
 
+        public async Task AddEvent(Event @event)
+        {
+            _dbContext.Events.Add(@event);
+            await _dbContext.SaveChangesAsync();
+        }
+
         public async Task UpdateEvent(Event @event)
         {
             _dbContext.Entry(@event).State = EntityState.Modified;
 
-            _dbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync();
         }
+
         public async Task DeleteEvent(int id)
         {
             _dbContext.Remove(id);
-            _dbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync();
         }
+
         public async Task<int> GetEventIdByEventName(string eventName)
         {
             var ev = await _dbContext.Events
