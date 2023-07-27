@@ -2,8 +2,8 @@
 {
     public class OrdersPatchDTO
     {
-        public int eventID { set; get; }
-        public int ticketCategoryID { set; get; }
-        public int numberOfTickets { set; get; }
+        public int EventID { set; get; }
+        public int TicketCategoryID { set; get; }
+        public int NumberOfTickets { set; get; }
     }
 }

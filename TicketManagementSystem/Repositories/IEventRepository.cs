@@ -7,7 +7,7 @@ namespace TicketManagementSystem.Repositories
         IEnumerable<Event> GetAll();
         Task<Event> GetById(int id);
         int AddEvent(Event @event);
-        void UpdateEvent(Event @event);
-        void DeleteEvent(int id);
+        Task UpdateEvent(Event @event);
+        Task DeleteEvent(int id);
     }
 }

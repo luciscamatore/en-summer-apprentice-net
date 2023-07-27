@@ -2,8 +2,8 @@
 {
     public class EventPatchDTO
     {
-        public int eventId { get; set; }
-        public string eventName { get; set; }
-        public string eventDescription { get; set; }
+        public int EventId { get; set; }
+        public string EventName { get; set; }
+        public string EventDescription { get; set; }
     }
 }

@@ -1,17 +1,17 @@
-﻿using TicketManagementSystem.Models;
-
-namespace TicketManagementSystem.DTO
+﻿namespace TicketManagementSystem.DTO
 {
     public class OrderDTO
     {
-        public int orderID { get; set; }
+        public string EventName { get; set; }
 
-        public string eventName { get; set; }
+        public string Location { get; set; }
 
-        public DateTime orderdAt { get; set; }
+        public long TotalPrice { get; set; }
 
-        public int TicketCategory { get; set; }
+        public long NumberOfTickets { get; set; }
 
-        public long totalPrice { get; set; }
+        public DateTime OrderdAt { get; set; }
+
+        public string TicketCategory { get; set; }
     }
 }

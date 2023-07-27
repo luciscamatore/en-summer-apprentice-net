@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TicketManagementSystem.Exceptions;
 using TicketManagementSystem.Models;
 
 namespace TicketManagementSystem.Repositories
@@ -26,20 +27,21 @@ namespace TicketManagementSystem.Repositories
                 .Where(e => e.EventId == id)
                 .Include(e => e.Venue)
                 .Include(e => e.EventType)
-                .FirstOrDefaultAsync();   
+                .FirstOrDefaultAsync();
+            if (ev == null) throw new EntityNotFoundException(id, nameof(Event));
             return ev;
         }
 
-        public void UpdateEvent(Event @event)
+        public async Task UpdateEvent(Event @event)
         {
             _dbContext.Entry(@event).State = EntityState.Modified;
 
-            _dbContext.SaveChanges();
+            _dbContext.SaveChangesAsync();
         }
-        public void DeleteEvent(int id)
+        public async Task DeleteEvent(int id)
         {
             _dbContext.Remove(id);
-            _dbContext.SaveChanges();
+            _dbContext.SaveChangesAsync();
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TicketManagementSystem.DTO;
 using TicketManagementSystem.Models;
@@ -33,8 +32,6 @@ namespace TicketManagementSystem.Controllers
         { 
             var ord = await _ordersRepository.GetByID(id);
 
-            if(ord == null) return NotFound();
-
             var ordersDTO = _mapper.Map<OrderDTO>(ord);
 
             return Ok(ordersDTO);
@@ -43,13 +40,11 @@ namespace TicketManagementSystem.Controllers
         [HttpPatch]
         public async Task<ActionResult> Patch(OrdersPatchDTO orderPatchDTO)
         {
-            Order ord = await _ordersRepository.GetByID(orderPatchDTO.eventID);
-            
-            if(ord == null) return NotFound();
+            Order ord = await _ordersRepository.GetByID(orderPatchDTO.EventID);
 
-            ord.TicketCategory.EventId = orderPatchDTO.eventID;
-            ord.TicketCategoryId = orderPatchDTO.ticketCategoryID;
-            ord.NumberOfTickets = orderPatchDTO.numberOfTickets;
+            ord.TicketCategory.EventId = orderPatchDTO.EventID;
+            ord.TicketCategoryId = orderPatchDTO.TicketCategoryID;
+            ord.NumberOfTickets = orderPatchDTO.NumberOfTickets;
 
             await _ordersRepository.UpdateOrders(ord);
 
@@ -60,8 +55,6 @@ namespace TicketManagementSystem.Controllers
         public async Task<ActionResult> Delete(int id)
         {
             var ord = await _ordersRepository.GetByID(id);
-
-            if(ord == null) return NotFound();
 
             await _ordersRepository.DeleteOrders(ord);
 

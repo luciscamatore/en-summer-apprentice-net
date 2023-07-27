@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TicketManagementSystem.Exceptions;
 using TicketManagementSystem.Models;
 
 namespace TicketManagementSystem.Repositories
@@ -23,7 +24,9 @@ namespace TicketManagementSystem.Repositories
                 .Where(o => o.OrderId == id)
                 .Include(e => e.TicketCategory)
                 .Include(e => e.TicketCategory.Event)
+                .Include(e => e.TicketCategory.Event.Venue)
                 .FirstOrDefaultAsync();
+            if (ev == null) throw new EntityNotFoundException(id, nameof(Order));
             return ev;
         }
 
@@ -31,13 +34,13 @@ namespace TicketManagementSystem.Repositories
         {
             _dbContext.Entry(order).State = EntityState.Modified;
 
-            _dbContext.SaveChanges();
+            _dbContext.SaveChangesAsync();
         }
 
         public async Task DeleteOrders(Order order) 
         {
             _dbContext.Remove(order);
-            _dbContext.SaveChanges();
+            _dbContext.SaveChangesAsync();
         }
 
     }   

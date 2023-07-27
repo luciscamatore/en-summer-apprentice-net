@@ -9,8 +9,9 @@ namespace TicketManagementSystem.Profiles
         public OrdersProfile() 
         {
             CreateMap<Order, OrderDTO>()
-                .ForMember(dest => dest.TicketCategory, opt => opt.MapFrom(src => src.TicketCategory.TicketCategoryId))
-                .ForMember(dest => dest.eventName, opt => opt.MapFrom(src => src.TicketCategory.Event.EventName))
+                .ForMember(dest => dest.TicketCategory, opt => opt.MapFrom(src => src.TicketCategory.Description))
+                .ForMember(dest => dest.EventName, opt => opt.MapFrom(src => src.TicketCategory.Event.EventName))
+                .ForMember(dest => dest.Location, opt => opt.MapFrom(src => src.TicketCategory.Event.Venue.Location))
                 .ReverseMap();
 
             CreateMap<Order, OrdersPatchDTO>();
