@@ -29,9 +29,9 @@ namespace TicketManagementSystem.Controllers
         }
 
         [HttpGet]
-        public ActionResult<Order> GetByID(int id) 
+        public async Task<ActionResult<Order>> GetByID(int id) 
         { 
-            var ord = _ordersRepository.GetByID(id);
+            var ord = await _ordersRepository.GetByID(id);
 
             if(ord == null) return NotFound();
 
@@ -41,9 +41,9 @@ namespace TicketManagementSystem.Controllers
         }
 
         [HttpPatch]
-        public ActionResult Patch(OrdersPatchDTO orderPatchDTO)
+        public async Task<ActionResult> Patch(OrdersPatchDTO orderPatchDTO)
         {
-            Order ord = _ordersRepository.GetByID(orderPatchDTO.eventID);
+            Order ord = await _ordersRepository.GetByID(orderPatchDTO.eventID);
             
             if(ord == null) return NotFound();
 
@@ -51,19 +51,19 @@ namespace TicketManagementSystem.Controllers
             ord.TicketCategoryId = orderPatchDTO.ticketCategoryID;
             ord.NumberOfTickets = orderPatchDTO.numberOfTickets;
 
-            _ordersRepository.UpdateOrders(ord);
+            await _ordersRepository.UpdateOrders(ord);
 
             return Ok(ord);
         }
 
         [HttpDelete] 
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            var ord = _ordersRepository.GetByID(id);
+            var ord = await _ordersRepository.GetByID(id);
 
             if(ord == null) return NotFound();
 
-            _ordersRepository.DeleteOrders(ord);
+            await _ordersRepository.DeleteOrders(ord);
 
             return NoContent();
         }

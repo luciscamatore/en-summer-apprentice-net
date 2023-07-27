@@ -17,22 +17,24 @@ namespace TicketManagementSystem.Repositories
             return ord;
         }
 
-        public Order GetByID(int id) 
+        public async Task<Order> GetByID(int id) 
         {
-            return _dbContext.Orders
+            var ev = await _dbContext.Orders
                 .Where(o => o.OrderId == id)
                 .Include(e => e.TicketCategory)
-                .FirstOrDefault();
+                .Include(e => e.TicketCategory.Event)
+                .FirstOrDefaultAsync();
+            return ev;
         }
 
-        public void UpdateOrders(Order order)
+        public async Task UpdateOrders(Order order)
         {
             _dbContext.Entry(order).State = EntityState.Modified;
 
             _dbContext.SaveChanges();
         }
 
-        public void DeleteOrders(Order order) 
+        public async Task DeleteOrders(Order order) 
         {
             _dbContext.Remove(order);
             _dbContext.SaveChanges();

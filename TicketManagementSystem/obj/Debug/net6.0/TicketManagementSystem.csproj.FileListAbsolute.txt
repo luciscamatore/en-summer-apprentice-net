@@ -87,3 +87,6 @@ D:\Practica\NET\TicketManagementSystem\TicketManagementSystem\obj\Debug\net6.0\T
 D:\Practica\NET\TicketManagementSystem\TicketManagementSystem\obj\Debug\net6.0\ref\TicketManagementSystem.dll
 D:\Practica\NET\TicketManagementSystem\TicketManagementSystem\bin\Debug\net6.0\AutoMapper.dll
 D:\Practica\NET\TicketManagementSystem\TicketManagementSystem\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+D:\Practica\NET\TicketManagementSystem\TicketManagementSystem\bin\Debug\net6.0\NLog.dll
+D:\Practica\NET\TicketManagementSystem\TicketManagementSystem\bin\Debug\net6.0\NLog.Extensions.Logging.dll
+D:\Practica\NET\TicketManagementSystem\TicketManagementSystem\bin\Debug\net6.0\NLog.Web.AspNetCore.dll

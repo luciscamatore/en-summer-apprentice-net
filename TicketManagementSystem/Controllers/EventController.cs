@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using TicketManagementSystem.DTO;
 using TicketManagementSystem.Models;
 using TicketManagementSystem.Repositories;
@@ -21,18 +22,18 @@ namespace TicketManagementSystem.Controllers
         }
 
         [HttpGet]
-        public async  Task<ActionResult<List<Event>>> getAllEvents()
+        public ActionResult<List<Event>> getAllEvents()
         {
-            var ev = await _eventRepository.GetAll();
+            var ev = _eventRepository.GetAll();
 
             var eventDTO = _mapper.Map<List<EventDTO>>(ev);
 
             return Ok(eventDTO);
         }
         [HttpGet]
-        public ActionResult<Event> getEventsByID(int id) { 
+        public async Task<ActionResult<Event>> getEventsByID(int id) { 
                 
-            Event ev = _eventRepository.GetById(id);
+            Event ev = await _eventRepository.GetById(id);
 
             if(ev == null) return NotFound();
 
@@ -42,9 +43,9 @@ namespace TicketManagementSystem.Controllers
         }
 
         [HttpPatch]
-        public ActionResult<EventPatchDTO> Patch(EventPatchDTO eventPatch)
+        public async Task<ActionResult<EventPatchDTO>> Patch(EventPatchDTO eventPatch)
         {
-            var ev = _eventRepository.GetById(eventPatch.eventId);
+            var ev = await _eventRepository.GetById(eventPatch.eventId);
 
             if(ev == null) return NotFound();
 
@@ -56,7 +57,7 @@ namespace TicketManagementSystem.Controllers
 
             _eventRepository.UpdateEvent(ev);
 
-            return Ok(ev);
+            return NoContent();
         }
 
         [HttpDelete]
