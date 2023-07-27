@@ -14,6 +14,8 @@ namespace TicketManagementSystem.Profiles
 
             CreateMap<Event, EventPatchDTO>().ReverseMap();
             CreateMap<Task<Event>, EventDTO>().ReverseMap();
+
+            CreateMap<Event, EventAddDTO>().ReverseMap();
         }
     }
 }

@@ -44,28 +44,34 @@ namespace TicketManagementSystem.Controllers
         public async Task<ActionResult<EventPatchDTO>> Patch(EventPatchDTO eventPatch)
         {
             var ev = await _eventRepository.GetById(eventPatch.EventId);
-
-            //var e = _mapper.Map<Event>(eventPatch);
             
             ev.EventName = eventPatch.EventName;
             ev.EventId = eventPatch.EventId;
             ev.EventDescription = eventPatch.EventDescription;
 
-            _eventRepository.UpdateEvent(ev);
+            await _eventRepository.UpdateEvent(ev);
 
             return NoContent();
         }
 
         [HttpDelete]
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            var ev = _eventRepository.GetById(id);
+            var ev = await _eventRepository.GetById(id);
 
             _eventRepository.DeleteEvent(id);
 
             return NoContent();
         }
 
-       
+        [HttpPost]
+        public async Task<ActionResult<Event>> AddEvent(EventAddDTO eventAddDTO)
+        {
+            var ev = _mapper.Map<Event>(eventAddDTO);
+
+            await _eventRepository.AddEvent(ev);
+
+            return Ok(ev);
+        }
     }
 }

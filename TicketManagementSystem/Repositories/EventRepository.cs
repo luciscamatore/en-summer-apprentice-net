@@ -11,9 +11,10 @@ namespace TicketManagementSystem.Repositories
         {
             _dbContext = new TicketManagementSystemContext();
         }
-        public int AddEvent(Event @event)
+        public async Task AddEvent(Event @event)
         {
-            throw new NotImplementedException();
+            _dbContext.Events.Add(@event);
+            _dbContext.SaveChangesAsync();
         }
 
         public IEnumerable<Event> GetAll()
@@ -42,6 +43,14 @@ namespace TicketManagementSystem.Repositories
         {
             _dbContext.Remove(id);
             _dbContext.SaveChangesAsync();
+        }
+        public async Task<int> GetEventIdByEventName(string eventName)
+        {
+            var ev = await _dbContext.Events
+                .Where(e => e.EventName == eventName)
+                .FirstOrDefaultAsync();
+            if (ev == null) throw new EntityNotFoundException(ev.EventId, nameof(Event));
+            return ev.EventId;
         }
     }
 }
