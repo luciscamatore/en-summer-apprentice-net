@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 using TicketManagementSystem.DTO;
 using TicketManagementSystem.Exceptions;
 using TicketManagementSystem.Models;

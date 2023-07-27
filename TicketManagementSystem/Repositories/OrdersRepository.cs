@@ -22,8 +22,8 @@ namespace TicketManagementSystem.Repositories
             var ev = await _dbContext.Orders
                 .Where(o => o.OrderId == id)
                 .Include(e => e.TicketCategory)
-                .Include(e => e.TicketCategory.Event)
-                .Include(e => e.TicketCategory.Event.Venue)
+                .ThenInclude(e => e.Event)
+                .ThenInclude(e => e.Venue)
                 .FirstOrDefaultAsync();
             if (ev == null) throw new EntityNotFoundException(id, nameof(Order));
             return ev;

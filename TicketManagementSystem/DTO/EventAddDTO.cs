@@ -1,6 +1,4 @@
-﻿using TicketManagementSystem.Models;
-
-namespace TicketManagementSystem.DTO
+﻿namespace TicketManagementSystem.DTO
 {
     public class EventAddDTO
     {
