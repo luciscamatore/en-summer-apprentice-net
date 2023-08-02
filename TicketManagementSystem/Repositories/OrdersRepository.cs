@@ -13,7 +13,8 @@ namespace TicketManagementSystem.Repositories
         {
             var ord = _dbContext.Orders
                 .Include(e => e.TicketCategory)
-                .Include(e => e.TicketCategory.Event);
+                .ThenInclude(e => e.Event)
+                .ThenInclude(e => e.Venue);
             return ord;
         }
 
